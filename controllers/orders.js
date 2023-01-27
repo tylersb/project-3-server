@@ -4,17 +4,8 @@ const db = require('../models')
 // POST /orders
 router.post('/', async (req, res) => {
   try {
-    const user = await db.User.findById(req.body.userId)
-
-    const newOrder = {
-      products: req.body.products,
-      dropoffAddress: req.body.dropoffAddress,
-      restaurantId: req.body.restaurantId
-    }
-
-    user.orders.push(newOrder)
-    await user.save()
-    res.json(user)
+    const newOrder = await db.Order.create(req.body)
+    res.json(newOrder)
   } catch (err) {
     console.log(err)
     res.status(500).json({ msg: 'Server Error' })
