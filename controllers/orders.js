@@ -19,23 +19,43 @@ router.get('/:id', async (req, res) => {
     res.json(foundOrder)
   } catch (err) {
     console.log(err)
+    if (err.name === 'CastError') {
+      return res.status(400).json({ msg: 'Invalid Order ID' })
+    }
     res.status(500).json({ msg: 'Server Error' })
   }
 })
 
 // PUT /orders/:id
-// router.put('/:id', async (req, res) => {
-//   try {
-//     const updatedOrder = await db.User.Order.findByIdAndUpdate(
-//       req.params.id,
-//       req.body,
-//       { new: true, upsert: true }
-//     )
-//     res.json(updatedOrder)
-//   } catch (err) {
-//     console.log(err)
-//     res.status(500).json({ msg: 'Server Error' })
-//   }
-// })
+router.put('/:id', async (req, res) => {
+  try {
+    const updatedOrder = await db.Order.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, upsert: true }
+    )
+    res.json(updatedOrder)
+  } catch (err) {
+    console.log(err)
+    if (err.name === 'CastError') {
+      return res.status(400).json({ msg: 'Invalid Order ID' })
+    }
+    res.status(500).json({ msg: 'Server Error' })
+  }
+})
+
+// DELETE /orders/:id
+router.delete('/:id', async (req, res) => {
+  try {
+    const deletedOrder = await db.Order.findByIdAndDelete(req.params.id)
+    res.json(deletedOrder)
+  } catch (err) {
+    console.log(err)
+    if (err.name === 'CastError') {
+      return res.status(400).json({ msg: 'Invalid Order ID' })
+    }
+    res.status(500).json({ msg: 'Server Error' })
+  }
+})
 
 module.exports = router
