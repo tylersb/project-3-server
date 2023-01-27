@@ -1,29 +1,35 @@
 const mongoose = require('mongoose')
 
-//child model to child model
-const ProductsSchema = new mongoose.Schema({ 
+// child model to child model
+const ProductSchema = new mongoose.Schema(
+  {
     name: {
-        type: String
+      type: String
     },
     price: {
-        type: Number
+      type: Number
     },
     description: {
-        type: String
-    },
-}, {timestamps: true})
+      type: String
+    }
+  },
+  { timestamps: true }
+)
 
-//child model
-const MenuSchema = new mongoose.Schema({
+// child model
+const MenuSchema = new mongoose.Schema(
+  {
     sectionName: {
-        type: String
+      type: String
     },
-    products: [ProductsSchema]
-}, {timestamps: true})
+    products: [ProductSchema]
+  },
+  { timestamps: true }
+)
 
-
-//parent model
-const RestaurantSchema = new mongoose.Schema({
+// parent model
+const RestaurantSchema = new mongoose.Schema(
+  {
     name: {
       type: String
     },
@@ -32,10 +38,12 @@ const RestaurantSchema = new mongoose.Schema({
       type: String
     },
     phone: {
-        type: Number
-      }
-  }, {
+      type: Number
+    }
+  },
+  {
     timestamps: true
-  })
+  }
+)
 
-  module.exports = mongoose.model('Restaurant', RestaurantSchema)
+module.exports = mongoose.model('Restaurant', RestaurantSchema)
