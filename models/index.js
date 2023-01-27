@@ -23,5 +23,6 @@ db.on('error', (err) => {
 
 module.exports = {
   User: require('./User'),
-  Restaurant: require('./Restaurant')
+  Restaurant: require('./Restaurant'),
+  Order: require('./Order')
 }

@@ -1,32 +1,8 @@
 // require mongoose ODM
 const mongoose = require('mongoose')
+const { Schema } = mongoose
 
-const OrderSchema = new mongoose.Schema(
-  {
-    products: [
-      {
-        product: {
-          type: String
-        },
-        quantity: {
-          type: Number
-        },
-        price: {
-          type: Number
-        }
-      }
-    ],
-    dropOffAddress: {
-      type: String
-    },
-    restaurantId: { type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant' }
-  },
-  {
-    timestamps: true
-  }
-)
-
-const UserSchema = new mongoose.Schema(
+const UserSchema = Schema(
   {
     name: {
       type: String
@@ -54,7 +30,7 @@ const UserSchema = new mongoose.Schema(
         type: Number
       }
     },
-    orders: [OrderSchema]
+    orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }]
   },
   {
     timestamps: true
