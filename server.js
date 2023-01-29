@@ -32,6 +32,7 @@ app.get('/', myMiddleware, (req, res) => {
 app.use('/users', require('./controllers/users.js'))
 app.use('/restaurants', require('./controllers/restaurants.js'))
 app.use('/orders', require('./controllers/orders.js'))
+app.use('/reviews', require('./controllers/reviews.js'))
 
 // hey listen
 app.listen(PORT, () => {
