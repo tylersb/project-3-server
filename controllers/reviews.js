@@ -12,6 +12,7 @@ const errorChecking = async (req, res, next) => {
     if (!req.body.rating) {
       throw new Error('No rating provided')
     }
+    next()
   } catch (err) {
     console.log(err)
     res.status(500).json({ msg: 'Server Error' })
