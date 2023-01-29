@@ -5,8 +5,12 @@ const jwt = require('jsonwebtoken')
 const authLockedRoute = require('./authLockedRoute')
 
 // GET /users - test endpoint
-router.get('/', (req, res) => {
-  res.json({ msg: 'welcome to the users endpoint' })
+router.get('/', async(req, res) => {
+  const findUser = await db.User.findOne({
+    email: res.locals.user
+  })
+  console.log(findUser, "GET TEST")
+  res.json(findUser)
 })
 
 // POST /users/register - CREATE new user
@@ -24,13 +28,18 @@ router.post('/register', async (req, res) => {
     const password = req.body.password
     const saltRounds = 12
     const hashedPassword = await bcrypt.hash(password, saltRounds)
-
+    
+    //create the user address
+    // const newAddress = 
     // create new user
-    const newUser = new db.User({
+    const newUser = new db.User(
+      {email: req.body.email,
       name: req.body.name,
-      email: req.body.email,
-      password: hashedPassword
-    })
+      password: hashedPassword,
+      phoneNumber: req.body.phoneNumber,
+      address: req.body.address
+      })
+    console.log(newUser)
 
     await newUser.save()
 
@@ -38,7 +47,9 @@ router.post('/register', async (req, res) => {
     const payload = {
       name: newUser.name,
       email: newUser.email,
-      id: newUser.id
+      id: newUser.id,
+      phoneNumber: newUser.phoneNumber,
+      address: newUser.address
     }
 
     // sign jwt and send back
@@ -77,7 +88,9 @@ router.post('/login', async (req, res) => {
     const payload = {
       name: foundUser.name,
       email: foundUser.email,
-      id: foundUser.id
+      id: foundUser.id,
+      phoneNumber: foundUser.phoneNumber,
+      address: foundUser.address
     }
 
     // sign jwt and send back
