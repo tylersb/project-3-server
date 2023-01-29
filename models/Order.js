@@ -17,7 +17,18 @@ const OrderSchema = Schema(
       }
     ],
     dropOffAddress: {
-      type: String
+        street: {
+          type: String
+        },
+        city: {
+          type: String
+        },
+        state: {
+          type: String
+        },
+        zip: {
+          type: Number
+      }
     },
     restaurantId: { type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant' },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
