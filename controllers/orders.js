@@ -58,4 +58,18 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
+// GET /orders/user/:id
+router.get('/user/:id', async (req, res) => {
+  try {
+    const foundOrders = await db.Order.find({ userId: req.params.id })
+    res.json(foundOrders)
+  } catch (err) {
+    console.log(err)
+    if (err.name === 'CastError') {
+      return res.status(400).json({ msg: 'Invalid User ID' })
+    }
+    res.status(500).json({ msg: 'Server Error' })
+  }
+})
+
 module.exports = router

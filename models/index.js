@@ -7,7 +7,8 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1/' + dbName
 
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false
 })
 
 const db = mongoose.connection
@@ -24,5 +25,6 @@ db.on('error', (err) => {
 module.exports = {
   User: require('./User'),
   Restaurant: require('./Restaurant'),
-  Order: require('./Order')
+  Order: require('./Order'),
+  Review: require('./Review')
 }

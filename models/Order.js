@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-const OrderSchema = Schema(
+const OrderSchema = new Schema(
   {
     name: {
       type: String
@@ -23,17 +23,17 @@ const OrderSchema = Schema(
       }
     ],
     dropOffAddress: {
-        street: {
-          type: String
-        },
-        city: {
-          type: String
-        },
-        state: {
-          type: String
-        },
-        zip: {
-          type: Number
+      street: {
+        type: String
+      },
+      city: {
+        type: String
+      },
+      state: {
+        type: String
+      },
+      zip: {
+        type: Number
       }
     },
     restaurantId: { type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant' },
