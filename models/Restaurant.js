@@ -30,12 +30,32 @@ const MenuSchema = new mongoose.Schema(
 // parent model
 const RestaurantSchema = new mongoose.Schema(
   {
-    name: {
+    restaurantName: {
+      type: String
+    },
+    accountHolderName: {
+      type: String
+    },
+    email: {
+      type: String
+    },
+    password: {
       type: String
     },
     menu: [MenuSchema],
     address: {
-      type: String
+      street: {
+        type: String
+      },
+      city: {
+        type: String
+      },
+      state: {
+        type: String
+      },
+      zip: {
+        type: Number
+      }
     },
     phone: {
       type: Number
