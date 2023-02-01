@@ -3,6 +3,12 @@ const { Schema } = mongoose
 
 const OrderSchema = new Schema(
   {
+    name: {
+      type: String
+    },
+    totalPrice: {
+      type: Number
+    },
     products: [
       {
         name: {

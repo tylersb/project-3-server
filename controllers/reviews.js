@@ -26,12 +26,13 @@ router.post('/', errorChecking, async (req, res) => {
       db.Review.find({
         restaurantId: req.body.restaurantId,
         userId: req.body.userId
-      }).length > 0
-    ) {
+       }).length > 0
+      ) {
       throw new Error('You have already reviewed this restaurant')
+    } else {
+      const newReview = await db.Review.create(req.body)
+      res.json(newReview)
     }
-    const newReview = await db.Review.create(req.body)
-    res.json(newReview)
   } catch (err) {
     console.log(err)
     res.status(500).json({ msg: 'Server Error' })
