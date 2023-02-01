@@ -12,24 +12,26 @@ router.get('/', async (req, res) => {
   }
 })
 
-//POST /restaurants / creates restaurant
+// POST /restaurants / creates restaurant
 router.post('/', async (req, res) => {
   try {
-    
-    const newRestaurant = await db.Restaurant.findOneAndUpdate(
-      { restaurantName: req.body.restaurantName }, 
-      { accountHolderName: req.body.accountHolderName, 
-        restaurantDescription: req.body.restaurantDescription,
-        email: req.body.email,
-        phone: req.body.phone,
-        address: req.body.address,
-        menu: req.body.menu,
-      },
-      { new: true, upsert: true }
-    )
-    res.json(newRestaurant)
+    const foundRestaurant = await db.Restaurant.findOne({
+      restaurantName: req.body.restaurantName
+    })
+    if (foundRestaurant) {
+      const updatedRestaurant = await db.Restaurant.findByIdAndUpdate(
+        foundRestaurant._id,
+        req.body,
+        { new: true, upsert: true }
+      )
+      res.json(updatedRestaurant)
+    } else {
+      const newRestaurant = await db.Restaurant.create(req.body)
+      res.json(newRestaurant)
+    }
   } catch (err) {
-    console.log('error on restaurnt POST', err)
+    console.log(err)
+    res.status(500).json({ msg: 'Server Error' })
   }
 })
 
