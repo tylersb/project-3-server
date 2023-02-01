@@ -33,6 +33,9 @@ const RestaurantSchema = new mongoose.Schema(
     restaurantName: {
       type: String
     },
+    restaurantDescription: {
+      type: String
+    },
     accountHolderName: {
       type: String
     },
@@ -59,11 +62,13 @@ const RestaurantSchema = new mongoose.Schema(
     },
     phone: {
       type: Number
-    }
+    },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
   },
   {
     timestamps: true
   }
+
 )
 
 module.exports = mongoose.model('Restaurant', RestaurantSchema)

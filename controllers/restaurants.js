@@ -12,14 +12,15 @@ router.get('/', async (req, res) => {
   }
 })
 
-//POST /restaurants 
+//POST /restaurants / creates restaurant
 router.post('/', async (req, res) => {
   try {
+    
     const newRestaurant = await db.Restaurant.findOneAndUpdate(
       { restaurantName: req.body.restaurantName }, 
       { accountHolderName: req.body.accountHolderName, 
+        restaurantDescription: req.body.restaurantDescription,
         email: req.body.email,
-        password: req.body.email,
         phone: req.body.phone,
         address: req.body.address,
         menu: req.body.menu,

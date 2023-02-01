@@ -30,7 +30,8 @@ const UserSchema = new Schema(
         type: Number
       }
     },
-    orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }]
+    orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }],
+    restaurant: [{ type: Schema.Types.ObjectId, ref: 'Restaurant' }]
   },
   {
     timestamps: true
